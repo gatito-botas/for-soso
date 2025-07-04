@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>For Soso</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+
+  <style>
+    body {
+    font-family: Arial, sans-serif;
+    background-image: url("https://i.pinimg.com/originals/0e/c2/36/0ec2369af903e29ba38488cbbc402798.gif");
+    background-attachment: fixed;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    }
+
+    .topo_campo {
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle at right, #C8F0F4, #A2C7E0); 
+    border-radius: 100% 100% 0 0;
+    z-index: 11;
+    position: absolute;
+    clip-path: inset(0 0 95% 0);
+    margin-top: -196px;
+    }
+    #campo {
+    width: 500px;
+    height: 500px;
+    border-radius: 50%;
+    border: 4px solid #333;
+    position: relative;
+    overflow: hidden;
+    background: radial-gradient(circle at center, #cfecff, #988edb); 
+    z-index: 10;
+    }
+
+    .bolinha {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background-color: #ff4081;
+      position: absolute;
+      cursor: grab;
+      
+    }
+
+    .titulo{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        
+    }
+
+    #titulo_h1 {
+      color: #c5c9ff;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+      font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+      font-size: 4em;
+    }   
+
+    .fundo_jake {
+      background-color: aliceblue;
+      height: 80px;
+      width: 80px;  
+      display: flex;
+      align-items: center; 
+      justify-content: center;
+      border-radius: 50%; 
+      margin-top: 20px;  
+    }
+
+    .fundo_sombra {
+      width: 80%;
+      height: 80%;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      padding: 5%;
+    }
+
+    #caixa_doida {
+    background-color: #9f9abd;
+    clip-path: polygon(33% 0, 63% 0, 100% 100%, 0% 100%);
+    height: 280px;
+    width: 450px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 1%;
+    margin-top: -20px;
+    position: relative;
+    border-radius: 50px;
+    border: 4px rgba(0, 0, 0, 0.2) solid;
+    }
+
+    .container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      
+    }
+    .onde_sai_bolinha {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      background-color: #ff4040;
+      background: radial-gradient(circle at top, #8B83C2, #A2C7E0);
+      margin: 20px;
+      border: 1px solid #3333335b;
+    }
+
+    #alavanca-simples {
+    width: 70px;
+    height: 20px;
+    background-color: #652C86; 
+    border-radius: 6px;
+    border: none;
+    box-shadow: 0 5px 5px rgba(96, 191, 255, 0.2);
+    margin: 10px auto;
+    cursor: pointer;
+    transform-origin: center;
+    transition: transform 0.4s ease;
+    }
+        
+    #alavanca-simples.girar {
+      transform: rotate(360deg);
+    }
+
+    .confete {
+    width: 8px;
+    height: 8px;
+    background-color: rgb(71, 145, 255);
+    position: absolute;
+    border-radius: 50%;
+    opacity: 0.8;
+    pointer-events: none;
+    animation: explodir 1s ease-out forwards;
+    z-index: 1000;
+  }
+    .confetti {
+    left: 0;
+    pointer-events: none;
+    position: fixed;
+    top: 0;
+    transform: translate3d(0, 0, 0);
+    will-change: transform;
+    height: 100%;
+    width: 100%;
+    z-index: 1050;
+    }
+
+    .confetti-item {
+    position: absolute;
+    transform: translate3d(0, 0, 0);
+    will-change: transform;
+    }
+
+    .b {
+      width: 15px;
+      height: 15px;
+      border-radius: 50%;
+      display: inline-block;
+      margin-right: 12px;
+      transition: transform 0.3s ease;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    .card {
+    background-color: #f9e6ff; 
+    border: none;
+    transition: transform 0.05s ease, box-shadow 0.1s ease;
+    }
+    .card-title {
+    color: #7A52B3; 
+    font-weight: bold;
+    }
+    .card:hover {
+      transition: transform 0.05s ease, box-shadow 0.1s ease;
+      transform: scale(1.02);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+
+    .descricao {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.75rem;
+    gap: 10px;
+    }
+
+
+    @keyframes confetti-fall {
+    0% {
+        transform: translateY(-100%);
+    }
+    95% {
+        animation-timing-function: ease-in-out;
+        transform: translateY(calc(100vh - 55%));
+    }
+    100% {
+        transform: translateY(calc(150vh - 65%));
+    }
+    }
+
+  @keyframes explodir {
+    0% {
+      transform: translate(0, 0) scale(1);
+      opacity: 1;
+    }
+    100% {
+      transform: translate(var(--dx), var(--dy)) scale(0.5);
+      opacity: 0;
+    }
+  }
+
+
+  </style>
+
+    <!-- Modal -->
+    <div class="modal fade" id="modalMensagem" tabindex="-1" aria-labelledby="modalMensagemLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content text-center p-4">
+        <div class="modal-header">
+            <h5 class="modal-title" id="modalMensagemLabel">❤️</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+        </div>
+        <div class="modal-body">
+            <p id="mensagemModalTexto" class="fs-5"></p>
+        </div>
+        </div>
+    </div>
+    </div>
+
+</head>
+<body>
+    <br>
+    <div class="titulo"><h1 id="titulo_h1">Descubre...</h1></div>
+    <br>>
+    <!-- Confetti SVG symbol (invisível) -->
+    <svg class="d-none">
+    <defs>
+        <symbol id="svg-confetti">
+        <path fill="currentColor" d="M-.017 6.91L4.035.012l2.587 1.52L2.57 8.43z"></path>
+        </symbol>
+    </defs>
+    </svg>
+
+    
+
+    
+    <div id="campo"><div class="topo_campo"></div></div>
+    <div class="container">
+        <div id="caixa_doida">
+            <div class="fundo_jake">
+                <div class="fundo_sombra">
+                    <button type="button" id="alavanca-simples"></button>
+                </div>
+            </div>
+            
+
+            <div class="onde_sai_bolinha"></div>
+            
+
+        </div>
+    </div>
+
+    <div class="container py-5">
+    <div class="card shadow-sm">
+        <div class="card-body">
+        <h4 class="card-title mb-4 text-center"> 🌈 Legenda das Cores <br> 🌈 Leyenda de los Colores</h4>
+
+        <div class="descricao">
+            <span class="b" style="background-color: #FF7F11;"></span>
+            <span>
+            <strong>Por que te amo</strong> — motivos fofos e sinceros <br>
+            <strong>Por qué te amo</strong> — razones tiernas y sinceras
+            </span>
+        </div>
+
+        <div class="descricao">
+            <span class="b" style="background-color: #FFD93D;"></span>
+            <span>
+            <strong>Música</strong> — canções que me lembram você <br>
+            <strong>Música</strong> — canciones que me recuerdan a ti
+            </span>
+        </div>
+
+        <div class="descricao">
+            <span class="b" style="background-color: #FF4F79;"></span>
+            <span>
+            <strong>Mensagem</strong> — frases para te animar ou fazer sorrir <br>
+            <strong>Mensaje</strong> — frases para animarte o hacerte sonreír
+            </span>
+        </div>
+
+        <div class="descricao">
+            <span class="b" style="background-color: #cdff18;"></span>
+            <span>
+            <strong>Me lembra você</strong> — coisas do dia a dia que me fazem pensar em você 
+            <br>
+            <strong>Me recuerda a ti</strong> — cosas cotidianas que me hacen pensar en ti
+            </span>
+        </div>
+        </div>
+    </div>
+    </div>
+
+        <img src="https://i.pinimg.com/originals/98/aa/3e/98aa3ee3430adbe396bca48ecda05d06.gif" alt="te_amo" class="img-fluid" style="max-width: 100%; height: auto; margin-top: 20px; box-shadow: 0 4px 12px rgba(248, 248, 248, 0.692); border-radius: 10%;">
+
+  
+  <div class="container py-5">
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <h4 class="card-title mb-4 text-center">❤️</h4>
+        <div class="descricao">
+          <span><strong>Feito de Mateus para Soso Fofi</strong></span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <script>
+  const campo = document.getElementById('campo');
+  const ondeSai = document.querySelector('.onde_sai_bolinha');
+  const alavancaSimples = document.getElementById('alavanca-simples');
+
+  
+
+    // Paleta 
+    const paletaCoresVibrante = {
+    "por que te amo": "#FF7F11",     
+    "música": "#FFD93D",           
+    "mensagem": "#FF4F79",           
+    "me lembra você": "#cdff18"      
+    };
+
+    // JSON 
+
+    const dadosBolinhas = [
+    // Por que te amo
+    { cor: paletaCoresVibrante["por que te amo"], tipo: "por que te amo", conteudo: "Me faz rir com as coisas mais simples / Me haces reír con las cosas más simples" },
+    { cor: paletaCoresVibrante["por que te amo"], tipo: "por que te amo", conteudo: "Sua criatividade em um monte de coisa / Tu creatividad en muchas cosas" },
+    { cor: paletaCoresVibrante["por que te amo"], tipo: "por que te amo", conteudo: "Seus olhos que me hipnotizaram / Tus ojos que me hipnotizaron" },
+    { cor: paletaCoresVibrante["por que te amo"], tipo: "por que te amo", conteudo: "Sua risada / Tu risa" },
+    { cor: paletaCoresVibrante["por que te amo"], tipo: "por que te amo", conteudo: "Seus desenhos / Tus dibujos" },
+    { cor: paletaCoresVibrante["por que te amo"], tipo: "por que te amo", conteudo: "Você conversar sobre qualquer coisa, mesmo que seja 'machuquei o pé' / Que hables de cualquier cosa, incluso si es 'me lastimé el pie'" },
+    { cor: paletaCoresVibrante["por que te amo"], tipo: "por que te amo", conteudo: "Sua gentileza / Tu amabilidad" },
+    { cor: paletaCoresVibrante["por que te amo"], tipo: "por que te amo", conteudo: "Sua beleza / Tu belleza" },
+    { cor: paletaCoresVibrante["por que te amo"], tipo: "por que te amo", conteudo: "Quando você fala sobre seu dia / Cuando hablas sobre tu día" },
+    { cor: paletaCoresVibrante["por que te amo"], tipo: "por que te amo", conteudo: "Sua atenção com as pequenas coisas / Tu atención a los pequeños detalles" },
+
+    // Música (sem tradução)
+    { cor: paletaCoresVibrante["música"], tipo: "música", conteudo: "Oração | A Banda Mais Bonita da Cidade" },
+    { cor: paletaCoresVibrante["música"], tipo: "música", conteudo: "Can't Help Falling in Love | Elvis Presley" },
+    { cor: paletaCoresVibrante["música"], tipo: "música", conteudo: "Somethin' Stupid | Frank Sinatra, Nancy Sinatra" },
+    { cor: paletaCoresVibrante["música"], tipo: "música", conteudo: "Don | Miranda" },
+    { cor: paletaCoresVibrante["música"], tipo: "música", conteudo: "Fico Assim Sem Você | Adriana Partimpim" },
+    { cor: paletaCoresVibrante["música"], tipo: "música", conteudo: "Eu Te... | Hotelo" },
+    { cor: paletaCoresVibrante["música"], tipo: "música", conteudo: "Não Quero Dinheiro (Só Quero Amar) | Tim Maia" },
+    { cor: paletaCoresVibrante["música"], tipo: "música", conteudo: "Se Eu Corro | A Banda Mais Bonita da Cidade" },
+    { cor: paletaCoresVibrante["música"], tipo: "música", conteudo: "Gatinha Comunista | Vitroles" },
+    { cor: paletaCoresVibrante["música"], tipo: "música", conteudo: "LaLaLa I Love You (Skatebar) | Gummibär" },
+    { cor: paletaCoresVibrante["música"], tipo: "música", conteudo: "Once Upon A Time - Overture | Karu" },
+    { cor: paletaCoresVibrante["música"], tipo: "música", conteudo: "Turnaround | Hans Zimmer, Camille" },
+    { cor: paletaCoresVibrante["música"], tipo: "música", conteudo: "Primavera | YUNG LIXO, Biffe, Hakuro" },
+
+    // Mensagem
+    { cor: paletaCoresVibrante["mensagem"], tipo: "mensagem", conteudo: "Você é uma estrela, Soso. Nasceu para brilhar! / Eres una estrella, Soso. Naciste para brillar" },
+    { cor: paletaCoresVibrante["mensagem"], tipo: "mensagem", conteudo: "Você é linda, Soso / Eres hermosa, Soso" },
+    { cor: paletaCoresVibrante["mensagem"], tipo: "mensagem", conteudo: "Você é minha notificação favorita / Eres mi notificación favorita" },
+    { cor: paletaCoresVibrante["mensagem"], tipo: "mensagem", conteudo: "Você tem me ajudado a ser alguém melhor / Me has ayudado a ser una mejor persona" },
+    { cor: paletaCoresVibrante["mensagem"], tipo: "mensagem", conteudo: "Eu me preocupo com você / Me preocupo por ti" },
+    { cor: paletaCoresVibrante["mensagem"], tipo: "mensagem", conteudo: "Eu te amo / Te amo" },
+    { cor: paletaCoresVibrante["mensagem"], tipo: "mensagem", conteudo: "Mesmo que você não perceba, você muda com a graça de sua presença / Aunque no lo notes, cambias todo con la gracia de tu presencia" },
+    { cor: paletaCoresVibrante["mensagem"], tipo: "mensagem", conteudo: "Não se cobre tanto, você está indo no caminho certo / No te exijas tanto, vas por el camino correcto" },
+
+    // Me lembra você
+    { cor: paletaCoresVibrante["me lembra você"], tipo: "me lembra você", conteudo: "Desenhar / Dibujar" },
+    { cor: paletaCoresVibrante["me lembra você"], tipo: "me lembra você", conteudo: "Cuidar da pele / Cuidar la piel" },
+    { cor: paletaCoresVibrante["me lembra você"], tipo: "me lembra você", conteudo: "Cozinhar / Cocinar" },
+    { cor: paletaCoresVibrante["me lembra você"], tipo: "me lembra você", conteudo: "Cuscuz :) / Cuscús :)" },
+    { cor: paletaCoresVibrante["me lembra você"], tipo: "me lembra você", conteudo: "Arepas (queria muito experimentar) / Arepas (tengo muchas ganas de probarlas)" },
+    { cor: paletaCoresVibrante["me lembra você"], tipo: "me lembra você", conteudo: "Café / Café" },
+    { cor: paletaCoresVibrante["me lembra você"], tipo: "me lembra você", conteudo: "A lua e o sol / La luna y el sol" },
+    { cor: paletaCoresVibrante["me lembra você"], tipo: "me lembra você", conteudo: "Coelhos / Conejos" },
+    { cor: paletaCoresVibrante["me lembra você"], tipo: "me lembra você", conteudo: "A natureza / La naturaleza" },
+    { cor: paletaCoresVibrante["me lembra você"], tipo: "me lembra você", conteudo: "Quando olho pela janela do meu quarto e vejo as nuvens / Cuando miro por la ventana de mi cuarto y veo las nubes" }
+    ];
+
+
+
+
+  const bolinhas = [];
+
+  // Criar bolinhas 
+  dadosBolinhas.forEach((info, i) => {
+    const bolinha = document.createElement('div');
+    bolinha.classList.add('bolinha');
+    bolinha.style.backgroundColor = info.cor;
+
+    const x = Math.random() * 420;
+    const y = Math.random() * 420;
+
+    bolinha.style.left = `${x}px`;
+    bolinha.style.top = `${y}px`;
+
+    bolinhas.push({
+      el: bolinha,
+      x,
+      y,
+      vx: 0,
+      vy: 0,
+      pegando: false,
+      info
+    });
+
+    campo.appendChild(bolinha);
+  });
+
+  let bolinhaSelecionada = null;
+
+  document.addEventListener('mousedown', (e) => {
+    const b = bolinhas.find(b => b.el === e.target);
+    if (b) {
+      bolinhaSelecionada = b;
+      b.pegando = true;
+    }
+  });
+
+  document.addEventListener('mousemove', (e) => {
+    if (bolinhaSelecionada) {
+      const campoRect = campo.getBoundingClientRect();
+      const x = e.clientX - campoRect.left - 20;
+      const y = e.clientY - campoRect.top - 20;
+
+      const dist = Math.hypot(x - 230, y - 230);
+      if (dist + 20 <= 250) {
+        bolinhaSelecionada.x = x;
+        bolinhaSelecionada.y = y;
+        bolinhaSelecionada.vx = 0;
+        bolinhaSelecionada.vy = 0;
+      }
+    }
+  });
+
+  document.addEventListener('mouseup', () => {
+    if (bolinhaSelecionada) {
+      bolinhaSelecionada.pegando = false;
+      bolinhaSelecionada.vx = (Math.random() - 0.5) * 4;
+      bolinhaSelecionada.vy = (Math.random() - 0.5) * 4;
+    }
+    bolinhaSelecionada = null;
+  });
+
+  function atualizar() {
+    for (const b of bolinhas) {
+      if (b.noCampo === false) continue;
+
+      if (!b.pegando) {
+        b.vy += 0.1;
+        b.y += b.vy;
+        b.x += b.vx;
+
+        b.vx *= 0.98;
+
+        const dist = Math.hypot(b.x - 230, b.y - 230);
+        if (dist + 20 >= 250) {
+          const angle = Math.atan2(b.y - 230, b.x - 230);
+          const toCenterX = Math.cos(angle) * (dist + 20 - 250);
+          const toCenterY = Math.sin(angle) * (dist + 20 - 250);
+
+          b.x -= toCenterX;
+          b.y -= toCenterY;
+
+          b.vx *= -0.6;
+          b.vy *= -0.6;
+        }
+
+        if (Math.abs(b.vy) < 0.1) b.vy = 0;
+        if (Math.abs(b.vx) < 0.1) b.vx = 0;
+      }
+
+      b.el.style.left = `${b.x}px`;
+      b.el.style.top = `${b.y}px`;
+    }
+
+    // COLISÃO
+    // Colisão entre bolinhas
+    for (let i = 0; i < bolinhas.length; i++) {
+      const a = bolinhas[i];
+      if (a.noCampo === false) continue;
+
+      for (let j = i + 1; j < bolinhas.length; j++) {
+        const b = bolinhas[j];
+        if (b.noCampo === false) continue;
+
+        const dx = b.x - a.x;
+        const dy = b.y - a.y;
+        const dist = Math.hypot(dx, dy);
+        const minDist = 40;
+
+        if (dist < minDist && dist !== 0) {
+          const overlap = (minDist - dist) / 2;
+          const nx = dx / dist;
+          const ny = dy / dist;
+
+          if (!a.pegando) {
+            a.x -= nx * overlap;
+            a.y -= ny * overlap;
+            a.vx -= nx * 0.5;
+            a.vy -= ny * 0.5;
+          }
+
+          if (!b.pegando) {
+            b.x += nx * overlap;
+            b.y += ny * overlap;
+            b.vx += nx * 0.5;
+            b.vy += ny * 0.5;
+          }
+        }
+      }
+    }
+
+    requestAnimationFrame(atualizar);
+  }
+
+
+  atualizar();
+
+  function mostrarConfetes(x, y) {
+    for (let i = 0; i < 15; i++) {
+      const confete = document.createElement("div");
+      confete.classList.add("confete");
+
+      confete.style.left = `${x}px`;
+      confete.style.top = `${y}px`;
+
+      const dx = (Math.random() - 0.5) * 200 + "px";
+      const dy = (Math.random() - 0.5) * 200 + "px";
+
+      confete.style.setProperty("--dx", dx);
+      confete.style.setProperty("--dy", dy);
+
+      document.body.appendChild(confete);
+
+      setTimeout(() => {
+        confete.remove();
+      }, 1000);
+    }
+  }
+
+
+  // clicar na alavanca: girar + sortear bolinha
+    alavancaSimples.addEventListener('click', () => {
+    alavancaSimples.classList.add('girar');
+    setTimeout(() => {
+      alavancaSimples.classList.remove('girar');
+    }, 400);
+
+    if (ondeSai.hasChildNodes()) return;
+
+    const bolinhasDisponiveis = bolinhas.filter(b => b.noCampo !== false);
+
+    if (bolinhasDisponiveis.length > 0) {
+      const indice = Math.floor(Math.random() * bolinhasDisponiveis.length);
+      const b = bolinhasDisponiveis[indice];
+
+      b.noCampo = false; 
+
+      campo.removeChild(b.el);
+
+      const bolinhaSaida = b.el.cloneNode(true);
+      bolinhaSaida.style.position = "static";
+      bolinhaSaida.style.marginTop = "30px";
+      bolinhaSaida.style.marginLeft = "30px";
+      
+      bolinhaSaida.style.cursor = "pointer";
+
+      bolinhaSaida.addEventListener("click", () => {
+        document.getElementById("mensagemModalTexto").innerText = `🎁 ${b.info.tipo.toUpperCase()}: ${b.info.conteudo}`;
+        const modal = new bootstrap.Modal(document.getElementById("modalMensagem"));
+        modal.show();
+
+        ondeSai.innerHTML = "";
+      });
+
+      ondeSai.appendChild(bolinhaSaida);
+
+      const ondeSaiRect = ondeSai.getBoundingClientRect();
+      const cx = ondeSaiRect.left + ondeSaiRect.width / 2;
+      const cy = ondeSaiRect.top + ondeSaiRect.height / 2;
+  mostrarConfetes(cx, cy);
+    }
+  });
+
+  function randomize(collection) {
+  var randomNumber = Math.floor(Math.random() * collection.length);
+  return collection[randomNumber];
+}
+
+function confetti() {
+  $(".confetti").remove();
+  var $confettiItems = $('<div class="confetti"></div>'),
+    colors = ["#3b5692", "#f9c70b", "#00abed", "#ea6747"],
+    height = 6.6,
+    width = 6.6;
+
+  var scale, $confettiItem;
+
+  for (var i = 0; i < 100; i++) {
+    scale = Math.random() * 1.75 + 1;
+    $confettiItem = $(
+      "<svg class='confetti-item' width='" +
+        width * scale +
+        "' height='" +
+        height * scale +
+        "' viewbox='0 0 " +
+        width +
+        " " +
+        height +
+        "'>\n  <use transform='rotate(" +
+        Math.random() * 360 +
+        ", " +
+        width / 2 +
+        ", " +
+        height / 2 +
+        ")' xlink:href='#svg-confetti' />\n</svg>"
+    );
+    $confettiItem.css({
+      animation:
+        Math.random() +
+        2 +
+        "s " +
+        Math.random() * 2 +
+        "s confetti-fall ease-in both",
+      color: randomize(colors),
+      left: Math.random() * 100 + "vw"
+    });
+    $confettiItems.append($confettiItem);
+  }
+  $("body").append($confettiItems);
+}
+
+document.getElementById("modalMensagem").addEventListener("shown.bs.modal", function () {
+  confetti();
+});
+
+
+</script>
+
+</body>
+</html>
